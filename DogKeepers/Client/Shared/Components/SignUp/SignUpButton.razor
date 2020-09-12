@@ -1,0 +1,7 @@
+﻿@inject DialogService dialogService
+<button 
+        type="button" 
+        class="btn btn-light text-center" 
+        @onclick="@(args => dialogService.Open<SignUpView>("", null, new DialogOptions() { ShowTitle = false }))">
+    Registro
+</button>

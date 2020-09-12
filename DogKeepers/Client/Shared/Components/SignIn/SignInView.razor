@@ -1,0 +1,57 @@
+﻿<div class="container-fluid signin-component text-center">
+    <section id="title-section" class="row p-3 mb-3">
+        <div class="col-12 text-right">
+            <button class="text-center btn btn-outline-light text-dark font-weight-bolder" @onclick="@(args => dialogService.Close(true))">
+                <span>X</span>
+            </button>
+        </div>
+        <div class="col-12">
+            <h2>
+                Iniciar sesión
+            </h2>
+        </div>
+    </section>
+    @if (Message != "")
+    {
+        <div class="alert alert-warning text-center font-weight-bold">
+            @Message
+        </div>
+    }
+    <EditForm Model="User" OnValidSubmit="DoSignIn" class="row mb-3">
+        <DataAnnotationsValidator />
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="form-group row">
+                <label for="email" class="col-12">Correo Electrónico</label>
+                <div class="col-12">
+                    <InputText @bind-Value="@User.Email"
+                               class="form-control form-control-lg"
+                               name="email" />
+                    <ValidationMessage For="@(() => User.Email)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-12">Contraseña</label>
+                <div class="col-12">
+                    <InputText type="password"
+                               @bind-Value="@User.Password"
+                               class="form-control form-control-lg"
+                               name="password" />
+                    <ValidationMessage For="@(() => User.Password)" />
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <div class="col-12">
+                    <button class="btn btn-primary btn-lg" disabled="@LoadingAction">
+                        Entrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+    <hr style="color: #888;" />
+    <div class="row">
+        <div class="col-12 text-center">
+            <a href="" class="text-decoration-none text-primary">Olvide mi contraseña</a>
+        </div>
+    </div>
+</div>

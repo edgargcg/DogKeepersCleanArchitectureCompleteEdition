@@ -1,0 +1,91 @@
+﻿<div class="container-fluid signup-component">
+    <section id="title-section" class="row p-3 mb-3">
+        <div class="col-12 text-right">
+            <button class="text-center btn btn-outline-light text-dark font-weight-bolder" @onclick="@(args => dialogService.Close(true))">
+                <span>X</span>
+            </button>
+        </div>
+        <div class="col-12">
+            <h2>
+                Registro
+            </h2>
+            <span class="text-muted">
+                Ingresa los datos que te solicitan a continuación
+            </span>
+        </div>
+    </section>
+    @if(Message != "")
+    {
+        <div class="alert alert-warning text-center font-weight-bold">
+            @Message
+        </div>
+    }
+    <EditForm Model="User" OnValidSubmit="Create" class="row mb-3">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="form-group row">
+                <label for="name" class="col-12 col-md-3">Nombre</label>
+                <div class="col-12 col-md-9">
+                    <InputText @bind-Value="@User.Name"
+                                class="form-control"
+                                name="name" />
+                    <ValidationMessage For="@(() => User.Name)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-12 col-md-3">Correo electrónico</label>
+                <div class="col-12 col-md-9">
+                    <InputText @bind-Value="@User.Email"
+                                class="form-control"
+                                name="email" />
+                    <ValidationMessage For="@(() => User.Email)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="dateBirth" class="col-12 col-md-3">Fecha de nacimiento</label>
+                <div class="col-12 col-md-6">
+                    <InputDate @bind-Value="@User.Birthday"
+                                class="form-control"
+                                name="dateBirth" />
+                    <ValidationMessage For="@(() => User.Birthday)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="phone" class="col-12 col-md-3">Teléfono</label>
+                <div class="col-12 col-md-6">
+                    <InputText @bind-Value="@User.Phone"
+                                class="form-control"
+                                name="phone" />
+                    <ValidationMessage For="@(() => User.Phone)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-12 col-md-3">Contraseña</label>
+                <div class="col-12 col-md-6">
+                    <InputText type="password"
+                                @bind-Value="@User.Password"
+                                class="form-control"
+                                name="password" />
+                    <ValidationMessage For="@(() => User.Password)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="confirmPassword" class="col-12 col-md-3">Confirmar contraseña</label>
+                <div class="col-12 col-md-6">
+                    <InputText type="password"
+                                @bind-Value="@User.ConfirmPassword"
+                                class="form-control"
+                                name="confirmPassword" />
+                    <ValidationMessage For="@(() => User.ConfirmPassword)" />
+                </div>
+            </div>
+            <div class="form-group row mt-5">
+                <div class="col-12 col-md-5">
+                    <button class="btn btn-primary btn-lg" disabled="@LoadingAction">
+                        Registrarme
+                    </button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>

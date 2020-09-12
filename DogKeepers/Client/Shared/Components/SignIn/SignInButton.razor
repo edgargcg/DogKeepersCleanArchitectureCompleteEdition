@@ -1,0 +1,6 @@
+﻿@inject DialogService dialogService
+<button type="button"
+        class="btn btn-light text-center"
+        @onclick="@(args => dialogService.Open<SignInView>("", null, new DialogOptions() { ShowTitle = false }))">
+    Entrar
+</button>

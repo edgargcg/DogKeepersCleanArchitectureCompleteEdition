@@ -1,0 +1,32 @@
+﻿@using DogKeepers.Shared.DTOs
+<div class="card dog-card shadow" @attributes="CustomsParams">
+    <img src="images/iconfinder_Golden_retriever_6366338.svg" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h4 class="card-title brown-site text-center">
+            @Dog.Name
+        </h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <small>Edad: </small>
+                <span>@Dog.Age año(s)</span>
+            </li>
+            <li class="list-group-item">
+                <small>Raza: </small>
+                <span>@Dog.Race.Name</span>
+            </li>
+            <li class="list-group-item">
+                <small>Talla: </small>
+                <span>@Dog.Size.Name</span>
+            </li>
+        </ul>
+        <div class="text-right mt-4">
+            <a href="/Dog/@Dog.Id" class="btn btn-info">
+                Más..
+            </a>
+        </div>
+    </div>
+</div>
+@code{
+    [Parameter] public DogDto Dog { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> CustomsParams { get; set; }
+}

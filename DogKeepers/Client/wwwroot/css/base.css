@@ -1,0 +1,240 @@
+﻿body {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    background-color: #fdfdfd;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+
+#header {
+    height: 70px;
+    border-top: 4px solid #6f4e2a;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: #fff;
+}
+    #header div{
+        height: 100%;
+    }
+        #header div img{
+            height: 100%;
+        }
+#main .custom-container{
+    min-height: 50vh;
+}
+#menu {
+    background-color: #331a00;
+}
+    #menu ul{
+        list-style: none;
+        height: 100%;
+        align-content: space-between;
+        margin: 0;
+        padding: 0;
+    }
+        #menu ul li {
+            height: 100%;
+            padding: 5px;
+            display: inline-block;
+            /*border-left: 1px solid #6f4e2a;*/
+        }
+            #menu ul li a {
+                color: #cea87e;
+                text-decoration: none;
+            }
+                #menu ul li a:hover {
+                    background-color: #cea87e;
+                    text-decoration: none;
+                    color: #6f4e2a;
+                }
+#footer {
+    background-color: #331a00;
+    border-top: 4px solid #cea87e;
+    height: 400px;
+}
+    #footer img{
+        height: 50px;
+    }
+    #footer ul{
+        list-style: none;
+    }
+        #footer ul li{
+            padding: 5px;
+        }
+            #footer ul li a {
+                color: white;
+                text-decoration: none;
+            }
+
+    .banner {
+        position: relative;
+    }
+        .banner .banner-img {
+            height: 500px;
+            width: 100%;
+            background-image: url('https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/01/shutterstock_587562362.jpg');
+            background-size: cover;
+            background-position-y: center;
+        }
+
+    .banner .overlay {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        background-color: #000;
+        opacity: .3;
+        overflow: hidden;
+        width: 100%;
+        height: 0;
+        transition: .5s ease;
+    }
+
+    .banner:hover .overlay {
+        bottom: 0;
+        height: 100%;
+    }
+
+    .banner .text {
+        white-space: nowrap;
+        color: white;
+        font-size: 3rem;
+        font-weight: bolder;
+        letter-spacing: .3rem;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-60%, -60%);
+        -ms-transform: translate(-60%, -60%);
+    }
+.index-page .sugerencias{
+    min-height: 400px;
+    position: relative;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+    .index-page .sugerencias .dog-card img{
+        max-height: 200px;
+    }
+    .index-page .sugerencias .dog-card h4{
+        font-weight: bold;
+        letter-spacing: .2rem;
+    }
+
+.dogs-page .dog-card{
+    height: 570px;
+}
+
+.dog-page .banner {
+    position: relative;
+}
+
+    .dog-page .banner .banner-img {
+        height: 300px;
+        width: 100%;
+        background-size: auto;
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position-x: center;
+    }
+
+    .dog-page .banner .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #000;
+        opacity: .;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+
+    .dog-page .banner .text {
+        white-space: nowrap;
+        color: white;
+        font-size: 3rem;
+        font-weight: bolder;
+        letter-spacing: .3rem;
+        position: absolute;
+        overflow: hidden;
+        top: 95%;
+        left: 55%;
+    }
+
+
+/*Loading*/
+.loading{
+    position: absolute;
+    top: 30%;
+    left: 45%;
+}
+    .loading img{
+        animation-name: rotate-in-center;
+        animation-duration: 6.2s;
+        animation-timing-function: ease;
+        animation-delay: 0s;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+        animation-fill-mode: none;
+        height: 100px;
+    }
+    .loading h5{
+        font-weight: bolder;
+        letter-spacing: .3rem;
+    }
+
+/*Forms*/
+.invalid {
+    border-color: red;
+}
+
+.validation-message {
+    color: red;
+    font-size: .8rem;
+}
+
+
+
+/*Cursors*/
+.cursor-hand {
+    cursor: pointer;
+}
+
+/*Fonts - backgrounds - colors*/
+.brown-site {
+    color: #6f4e2a;
+}
+.letter-spacion-2{
+    letter-spacing: .2rem;
+}
+
+/*Others*/
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+/*ANIMATIONS*/
+@keyframes rotate-in-center {
+    0% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+}
+    

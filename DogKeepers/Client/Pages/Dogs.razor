@@ -1,0 +1,77 @@
+﻿@page "/dogs"
+@layout BaseLayout
+@using DogKeepers.Client.Shared.Components.DogCard
+@using DogKeepers.Client.Shared.Components.Utils.Pagination
+<div class="container dogs-page">
+    <section id="title-section" class="row p-5 mb-2">
+        <div class="col-12">
+            <h2>
+                Mascotas para adopción
+            </h2>
+            <span class="text-muted">No dejes ir la oportunidad de hacer feliz a un perrito</span>
+        </div>
+    </section>
+    <div class="custom-container col-12">
+        <div class="row mb-4 search-controls">
+            <div class="col">
+                <nav class="navbar navbar-light bg-light p-3">
+                    <div class="input-group input-group-lg">
+                        <input class="form-control form-control-lg"
+                               placeholder="Nombre"
+                               @bind-value="Filters.Name" />
+                        <RadzenDropDown AllowClear="true"
+                                        TValue="int"
+                                        Data="@SizesList"
+                                        ValueProperty="Id"
+                                        TextProperty="Name"
+                                        Placeholder="Talla"
+                                        Name="SizeId"
+                                        Change="@(args => OnChangeRadzenDropDown())"
+                                        @bind-Value="Filters.SizeId"
+                                        Class="form-control form-control-lg" />
+                        <RadzenDropDown AllowClear="true"
+                                        TValue="int"
+                                        Data="@RacesList"
+                                        ValueProperty="Id"
+                                        TextProperty="Name"
+                                        Placeholder="Raza"
+                                        Name="RaceId"
+                                        Change="@(args => OnChangeRadzenDropDown())"
+                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        FilterOperator="StringFilterOperator.StartsWith"
+                                        AllowFiltering="true"
+                                        @bind-Value="Filters.RaceId"
+                                        Class="form-control form-control-lg" />
+                        <div class="input-group-prepend">
+                            <button class="btn btn-lg btn-info" @onclick="() => OnClick()">
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center p-3">
+                        @if(TotalDogs != null)
+                        {
+                            <span class="text-muted">
+                                Se encontraron @TotalDogs perritos en adopción
+                            </span>
+                        }
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <Loading IsLoading="@IsLoading" />
+        @if (DogsList?.Count > 0)
+        {
+            <Pagination PaginationData="@Pagination" SelectedPage="@SelectedPage" />
+            <div class="row">
+                @foreach (var dog in DogsList)
+                {
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                        <DogCard Dog="@dog" />
+                    </div>
+                }
+            </div>
+            <Pagination PaginationData="@Pagination" SelectedPage="@SelectedPage" />
+        }
+    </div>
+</div>

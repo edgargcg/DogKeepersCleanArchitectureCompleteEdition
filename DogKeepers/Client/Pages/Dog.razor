@@ -1,0 +1,74 @@
+﻿@page "/dog/{id:int}"
+@layout BaseLayout
+@using DogKeepers.Client.Shared.Components.DogCard
+<div class="container-fluid custom-container dog-page">
+    <Loading IsLoading="@IsLoading" />
+    @if (DogData != null)
+    {
+        <div class="banner row">
+            <div class="banner-img" style="background-image: url('data:image/@DogPictureType;base64,@DogPicture'); background-color: @(DogPictureType.Contains("svg") ? "#dadada" : "#6f4e2a" );"></div>
+            <div class="overlay">
+                <div class="text">Haz feliz a @DogData.Name</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row m-5">
+                <div class="col-12 col-lg-8 order-2 order-md-1">
+                    <h2 class="card-title brown-site text-center letter-spacion-2">
+                        Conoce a @DogData.Name
+                    </h2>
+                    <ul class="row list-group list-group-horizontal-md">
+                        <li class="list-group-item col">
+                            <small>Edad: </small>
+                            <span>@DogData.Age año(s)</span>
+                        </li>
+                        <li class="list-group-item col">
+                            <small>Raza: </small>
+                            <span>@DogData.Race.Name</span>
+                        </li>
+                        <li class="list-group-item col">
+                            <small>Talla: </small>
+                            <span>@DogData.Size.Name</span>
+                        </li>
+                    </ul>
+                    <p class="card-text mt-4">
+                        <h6>
+                            Descripción
+                        </h6>
+                        @DogData.Description
+                    </p>
+                    <p class="card-text mt-4">
+                        <h6>
+                            Condiciones
+                        </h6>
+                        @DogData.Conditions
+                    </p>
+                </div>
+                <div class="col-12 col-lg-4 order-1 order-md-2">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4>
+                                ¿Quieres adoptar a @DogData.Name?
+                            </h4>
+                            <a href="/adopt/@DogData.Id" class="btn btn-lg btn-info">
+                                Adoptar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        @if (DogSuggestion != null)
+                        {
+                            <h4 class="text-center">
+                                Otros perritos buscan familia
+                            </h4>
+                            <DogCard Dog="@DogSuggestion" class="card" />
+                            <a href="/dogs" class="mt-3 btn btn-dark btn-lg text-light cursor-hand">
+                                Ver más mascotas disponibles
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

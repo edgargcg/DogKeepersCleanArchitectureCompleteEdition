@@ -1,0 +1,46 @@
+﻿@page "/"
+@page "/inicio"
+@page "/home"
+@layout BaseLayout
+@using DogKeepers.Client.Shared.Components.Utils 
+@using DogKeepers.Client.Shared.Components.DogCard
+<div class="container-fluid index-page">
+    <div class="banner row">
+        <div class="banner-img"></div>
+        <div class="overlay">
+            <div class="text">
+                Dale un hogar, adopta 
+            </div>
+        </div>
+    </div>
+    <div class="row sugerencias">
+        <div class="container">
+            <Loading IsLoading="@IsLoading" />
+            @if (DogsList?.Count > 0)
+            {
+                <h2 class="brown-site text-center p-3 mb-3 letter-spacion-2 font-weight-bold">
+                    Mascotas por adoptar
+                </h2>
+                <div class="row row-cols-1 row-cols-md-3">
+                    @foreach(var dog in DogsList)
+                    {
+                        <div class="col mb-4">
+                            <DogCard Dog="@dog" />
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <a href="/dogs" class="btn btn-dark btn-lg text-light cursor-hand">
+                            Ver más mascotas disponibles
+                        </a>
+                    </div>
+                </div>
+            }
+            else if(DogsList?.Count == 0)
+            {
+                <h4>ksaldj231132</h4>
+            }
+        </div>
+    </div>
+</div>

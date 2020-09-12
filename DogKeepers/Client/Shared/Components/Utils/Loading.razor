@@ -1,0 +1,16 @@
+﻿@if (IsLoading)
+{
+    <div class="loading row">
+        <div class="col-12">
+            <div class="col-12 text-center h-auto">
+                <img src="images/iconfinder_Golden_retriever_6366338.svg" />
+            </div>
+            <h5 class="col-12 text-center">
+                Ladrando...
+            </h5>
+        </div>
+    </div>
+}
+@code{ 
+    [Parameter] public bool IsLoading{ get; set; }
+}
