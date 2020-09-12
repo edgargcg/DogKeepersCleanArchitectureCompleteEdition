@@ -7,8 +7,15 @@
     <div class="d-none d-md-block col-md-8 ">
         <div class="text-right">
             <div class="btn-group">
-                <SignInButton />
-                <SignUpButton />
+                <AuthorizeView>
+                    <Authorized>
+                        <h4>Logged</h4>
+                    </Authorized>
+                    <NotAuthorized>
+                        <SignInButton />
+                        <SignUpButton />
+                    </NotAuthorized>
+                </AuthorizeView>
             </div>
         </div>
     </div>

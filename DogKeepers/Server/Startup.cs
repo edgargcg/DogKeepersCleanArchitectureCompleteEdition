@@ -1,23 +1,22 @@
+using AutoMapper;
+using DogKeepers.Core.Interfaces.Repositories;
+using DogKeepers.Core.Interfaces.Services;
+using DogKeepers.Core.Interfaces.Utils;
+using DogKeepers.Core.Options;
+using DogKeepers.Core.Services;
+using DogKeepers.Infrastructure.ConnectionStrings;
+using DogKeepers.Infrastructure.Filters;
+using DogKeepers.Infrastructure.Repositories;
+using DogKeepers.Infrastructure.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
-using DogKeepers.Core.Interfaces.Services;
-using DogKeepers.Core.Services;
-using DogKeepers.Core.Interfaces.Repositories;
-using DogKeepers.Infrastructure.Repositories;
-using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using System;
-using DogKeepers.Core.Options;
-using System.Configuration;
-using DogKeepers.Infrastructure.ConnectionStrings;
-using DogKeepers.Infrastructure.Filters;
-using DogKeepers.Core.Interfaces.Utils;
-using DogKeepers.Infrastructure.Utils;
+using System.Text;
 
 namespace DogKeepers.Server
 {
@@ -41,6 +40,25 @@ namespace DogKeepers.Server
                 }
             );
 
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwt =>
+            {
+                var key = Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"]);
+                jwt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateIssuer = false,
+                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidIssuer = Configuration["Authentication:IsUser"],
+                    ValidAudience = Configuration["Authentication:Audience"]
+                };
+            });
+
             services.AddScoped<IDogService, DogService>();
             services.AddScoped<IDogRepository, DogRepository>();
 
@@ -53,8 +71,9 @@ namespace DogKeepers.Server
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddSingleton<IBaseRepository, BaseRepository>();
+            services.AddSingleton<IJwtUtil, JwtUtil>();
             services.AddSingleton<IFileUtil, FileUtil>();
+            services.AddSingleton<IBaseRepository, BaseRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.Configure<PathOptions>(options => Configuration.GetSection("Paths").Bind(options));
@@ -62,6 +81,10 @@ namespace DogKeepers.Server
             services.Configure<ConnectionString>(options => Configuration.GetSection("ConnectionsString").Bind(options));
 
             services.AddRazorPages();
+            services.AddMvc(
+                options =>
+                    options.Filters.Add<ValidationModelFilter>()
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

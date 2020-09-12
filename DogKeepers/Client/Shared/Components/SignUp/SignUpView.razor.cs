@@ -25,7 +25,7 @@ namespace DogKeepers.Client.Shared.Components.SignUp
         {
             LoadingAction = true;
             var apiResponse =
-                await httpClient.PostAsJsonAsync("api/user", User);
+                await httpClient.PostAsJsonAsync("api/user/signup", User);
 
             var response = await ApiResponse<UserDto>.Create(apiResponse);
             if (response.Error == null)

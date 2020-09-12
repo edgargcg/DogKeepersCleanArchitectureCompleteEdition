@@ -2,11 +2,10 @@
 using DogKeepers.Core.Exceptions;
 using DogKeepers.Core.Interfaces.Repositories;
 using DogKeepers.Core.Interfaces.Services;
+using DogKeepers.Core.Interfaces.Utils;
 using DogKeepers.Core.Response;
 using DogKeepers.Shared.QueryFilters;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DogKeepers.Core.Services
@@ -15,10 +14,12 @@ namespace DogKeepers.Core.Services
     {
 
         private readonly IUserRepository userRepository;
+        private readonly IJwtUtil jwtUtil;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IJwtUtil jwtUtil)
         {
             this.userRepository = userRepository;
+            this.jwtUtil = jwtUtil;
         }
 
         public async Task<Response<User>> Post(SignUpQueryFilter model)
@@ -30,10 +31,25 @@ namespace DogKeepers.Core.Services
 
             var user = await userRepository.Post(model);
 
-            if(user == null)
+            if (user == null)
                 throw new BusinessException("Ha ocurrido un error al intentar registrarlo, intente nuevamente");
 
             return new Response<User>(true, "Usuario registrado", user); ;
+        }
+
+        public async Task<Response<Jwt>> SignIn(SignInQueryFilter model)
+        {
+            var user = await userRepository.GetAuth(model);
+
+            if (user == null)
+                throw new BusinessException("Los datos que ingresaste no coinciden con ninguna cuenta");
+
+            var token = jwtUtil.Generate(user);
+            if (token == null)
+                throw new BusinessException("Los datos que ingresaste no coinciden con ninguna cuenta");
+
+            token.User = user;
+            return new Response<Jwt>(true, "", token);
         }
     }
 }

@@ -8,7 +8,8 @@ namespace DogKeepers.Core.Interfaces.Services
     public interface IUserService
     {
 
-        Task<Response<User>> Post(SignUpQueryFilter user);
+        Task<Response<User>> Post(SignUpQueryFilter model);
+        Task<Response<Jwt>> SignIn(SignInQueryFilter model);
 
     }
 }

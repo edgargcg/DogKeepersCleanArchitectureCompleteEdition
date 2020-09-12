@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using DogKeepers.Core.Entities;
 using DogKeepers.Core.Interfaces.Services;
-using DogKeepers.Core.Response;
 using DogKeepers.Shared.ApiResponse;
 using DogKeepers.Shared.DTOs;
 using DogKeepers.Shared.QueryFilters;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DogKeepers.Server.Controllers
 {
@@ -28,14 +23,29 @@ namespace DogKeepers.Server.Controllers
             this.userService = userService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(SignUpQueryFilter model)
+        [HttpPost("SignUp")]
+        public async Task<IActionResult> SignUp(SignUpQueryFilter model)
         {
             var response = await userService.Post(model);
             var apiResponse = new ApiResponse<UserDto>(
                 response.IsDone,
                 response.Message,
                 mapper.Map<User, UserDto>(response.Data),
+                null
+            );
+
+            return Ok(apiResponse);
+        }
+
+        [HttpPost("Authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] SignInQueryFilter model)
+        {
+            var response = await userService.SignIn(model);
+
+            var apiResponse = new ApiResponse<JwtDto>(
+                response.IsDone,
+                response.Message,
+                mapper.Map<Jwt, JwtDto>(response.Data),
                 null
             );
 

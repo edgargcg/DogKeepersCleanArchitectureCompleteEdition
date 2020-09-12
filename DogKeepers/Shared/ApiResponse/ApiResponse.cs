@@ -1,12 +1,10 @@
-﻿using CE = DogKeepers.Shared.CustomEntities;
-using DogKeepers.Shared.Metadata;
+﻿using DogKeepers.Shared.Metadata;
 using Newtonsoft.Json;
-using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
+using CE = DogKeepers.Shared.CustomEntities;
 
 namespace DogKeepers.Shared.ApiResponse
 {
@@ -16,7 +14,7 @@ namespace DogKeepers.Shared.ApiResponse
         public bool IsDone { get; set; }
         public string Message { get; set; }
         public T Data { get; set; }
-        public PaginationMetadata PaginationMetadata{ get; set; }
+        public PaginationMetadata PaginationMetadata { get; set; }
         public ErrorResponse Error { get; set; }
 
         public ApiResponse()

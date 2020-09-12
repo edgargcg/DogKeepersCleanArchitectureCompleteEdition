@@ -5,10 +5,10 @@ namespace DogKeepers.Shared.QueryFilters
     public class SignInQueryFilter
     {
 
-        [Required]
+        [Required(ErrorMessage = "Este dato es necesario")]
         [EmailAddress(ErrorMessage = "Ingrese un correo válido")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Este dato es necesario")]
         public string Password { get; set; }
 
     }

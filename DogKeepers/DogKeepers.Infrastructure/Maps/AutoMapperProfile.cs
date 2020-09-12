@@ -16,6 +16,7 @@ namespace DogKeepers.Infrastructure.Maps
             CreateMap<Race, RaceDto>().ReverseMap();
             CreateMap<Size, SizeDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<Jwt, JwtDto>().ReverseMap();
         }
 
     }

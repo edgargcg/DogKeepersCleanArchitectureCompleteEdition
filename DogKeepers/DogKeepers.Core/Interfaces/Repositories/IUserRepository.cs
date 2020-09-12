@@ -8,7 +8,8 @@ namespace DogKeepers.Core.Interfaces.Repositories
     {
 
         Task<User> Get(int id);
-        Task<User> Post(SignUpQueryFilter user);
+        Task<User> Post(SignUpQueryFilter model);
+        Task<User> GetAuth(SignInQueryFilter model);
         Task<bool> GetByEmailPhone(string email, string phone);
 
     }

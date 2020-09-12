@@ -36,6 +36,21 @@ namespace DogKeepers.Infrastructure.Repositories
             return user;
         }
 
+        public async Task<User> GetAuth(SignInQueryFilter model)
+        {
+            User user = null;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                var sqlResponse =
+                    await connection.QueryAsync<User>($"select * from users where email = '{model.Email}' and password = '{model.Password}'");
+
+                user = sqlResponse.FirstOrDefault();
+            }
+
+            return user;
+        }
+
         public async Task<bool> GetByEmailPhone(string email, string phone)
         {
             User user = null;
