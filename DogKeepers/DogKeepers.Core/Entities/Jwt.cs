@@ -8,6 +8,6 @@ namespace DogKeepers.Core.Entities
         public string Token { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public User User { get; set; }
-
+        public Administrator Administrator { get; set; }
     }
 }

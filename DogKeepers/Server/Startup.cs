@@ -33,12 +33,20 @@ namespace DogKeepers.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(
-                options =>
-                {
-                    options.Filters.Add<GlobalExceptionFilter>();
-                }
-            );
+            services
+               .AddControllers(
+                   options =>
+                   {
+                       options.Filters.Add<GlobalExceptionFilter>();
+                   }
+               )
+               .AddNewtonsoftJson(
+                   options =>
+                   {
+                       options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                   }
+               );
+
 
             services.AddAuthentication(auth =>
             {
@@ -70,6 +78,9 @@ namespace DogKeepers.Server
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAdministratorRepository, AdministratorRepository>();
+
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddSingleton<IJwtUtil, JwtUtil>();
             services.AddSingleton<IFileUtil, FileUtil>();
@@ -102,11 +113,13 @@ namespace DogKeepers.Server
                 app.UseHsts();
             }
 
+            app.UseRouting();
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

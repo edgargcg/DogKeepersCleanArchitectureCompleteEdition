@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject DogKeepers.Client.Helpers.Authentication.TokenRefreshing tokenRefreshing
 
 <RadzenNotification />
 <RadzenDialog />
@@ -10,3 +11,9 @@
     </main>
     <Footer />
 </div>
+@code{
+    protected override void OnInitialized()
+    {
+        tokenRefreshing.Start();
+    }
+}

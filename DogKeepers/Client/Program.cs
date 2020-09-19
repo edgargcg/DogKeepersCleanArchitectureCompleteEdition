@@ -10,6 +10,7 @@ using DogKeepers.Client.Providers;
 using Microsoft.AspNetCore.Components.Authorization;
 using DogKeepers.Client.Interfaces;
 using Blazored.LocalStorage;
+using DogKeepers.Client.Helpers.Authentication;
 
 namespace DogKeepers.Client
 {
@@ -46,7 +47,7 @@ namespace DogKeepers.Client
                 provider =>
                     provider.GetRequiredService<JwtAuthenticationProvider>()
             );
-
+            services.AddScoped<TokenRefreshing>();
             services.AddBlazoredLocalStorage(
                 config =>
                     config.JsonSerializerOptions.WriteIndented = true

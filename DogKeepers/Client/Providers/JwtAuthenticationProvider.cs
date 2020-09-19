@@ -95,15 +95,20 @@ namespace DogKeepers.Client.Providers
 
             if (DateTime.TryParse(expirationTimeString, out expirationTime))
             {
+
+                Console.WriteLine("Is expired: " + IsExpiredToken(expirationTime));
                 if (IsExpiredToken(expirationTime))
                 {
                     await Logout();
                 }
 
+                Console.WriteLine("Is require to refresh: " + IsRequiredRefreshToken(expirationTime));
                 if (IsRequiredRefreshToken(expirationTime))
                 {
                     var jwt = await localStorageService.GetItemAsync<string>(localStorageOption.Token);
                     var newJwt = await RefreshToken(jwt);
+
+                    Console.WriteLine(newJwt);
 
                     if (String.IsNullOrEmpty(newJwt))
                     {
@@ -125,7 +130,7 @@ namespace DogKeepers.Client.Providers
             var apiResponse =
                 await
                 httpClient.GetAsync(
-                    $"Auth/"
+                    $"Auth/RefreshToken"
                 );
 
             var response = await ApiResponse<JwtDto>.Create(apiResponse);

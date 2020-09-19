@@ -1,11 +1,12 @@
 ﻿using DogKeepers.Core.Entities;
+using System.Collections.Generic;
 
 namespace DogKeepers.Core.Interfaces.Utils
 {
     public interface IJwtUtil
     {
 
-        Jwt Generate(User user);
+        Jwt Generate(dynamic data);
 
     }
 }

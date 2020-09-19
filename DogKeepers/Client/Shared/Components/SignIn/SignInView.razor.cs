@@ -26,7 +26,7 @@ namespace DogKeepers.Client.Shared.Components.SignIn
             LoadingAction = true;
 
             var apiResponse =
-                await httpClient.PostAsJsonAsync("/api/user/authenticate", User);
+                await httpClient.PostAsJsonAsync("/api/auth", User);
 
             var response = await ApiResponse<JwtDto>.Create(apiResponse);
             if (response.Error == null)

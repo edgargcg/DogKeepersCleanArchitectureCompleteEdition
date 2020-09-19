@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace DogKeepers.Core.Interfaces.Services
 {
-    public interface IUserService
+    public interface IAuthService
     {
-
-        Task<Response<User>> Post(SignUpQueryFilter model);
+        Task<Response<Jwt>> SignIn(SignInQueryFilter model);
 
     }
 }

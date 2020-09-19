@@ -13,10 +13,11 @@ namespace DogKeepers.Infrastructure.Maps
                 .ForMember(d => d.PictureFile, s => s.MapFrom(src => src.Picture.PictureFile))
                 .ReverseMap();
 
+            CreateMap<Jwt, JwtDto>().ReverseMap();
             CreateMap<Race, RaceDto>().ReverseMap();
             CreateMap<Size, SizeDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<Jwt, JwtDto>().ReverseMap();
+            CreateMap<Administrator, AdministratorDto>().ReverseMap();
         }
 
     }

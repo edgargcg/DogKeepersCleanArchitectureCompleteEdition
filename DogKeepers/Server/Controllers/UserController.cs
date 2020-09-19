@@ -37,20 +37,7 @@ namespace DogKeepers.Server.Controllers
             return Ok(apiResponse);
         }
 
-        [HttpPost("Authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody] SignInQueryFilter model)
-        {
-            var response = await userService.SignIn(model);
 
-            var apiResponse = new ApiResponse<JwtDto>(
-                response.IsDone,
-                response.Message,
-                mapper.Map<Jwt, JwtDto>(response.Data),
-                null
-            );
-
-            return Ok(apiResponse);
-        }
 
 
     }

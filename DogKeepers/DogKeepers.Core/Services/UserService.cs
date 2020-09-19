@@ -36,20 +36,5 @@ namespace DogKeepers.Core.Services
 
             return new Response<User>(true, "Usuario registrado", user); ;
         }
-
-        public async Task<Response<Jwt>> SignIn(SignInQueryFilter model)
-        {
-            var user = await userRepository.GetAuth(model);
-
-            if (user == null)
-                throw new BusinessException("Los datos que ingresaste no coinciden con ninguna cuenta");
-
-            var token = jwtUtil.Generate(user);
-            if (token == null)
-                throw new BusinessException("Los datos que ingresaste no coinciden con ninguna cuenta");
-
-            token.User = user;
-            return new Response<Jwt>(true, "", token);
-        }
     }
 }

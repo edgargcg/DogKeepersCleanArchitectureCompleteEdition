@@ -51,7 +51,19 @@
                             <h4>
                                 ¿Quieres adoptar a @DogData.Name?
                             </h4>
-                            
+                            <AuthorizeView>
+                                <Authorized>
+                                    <a href="/adopt/@DogData.Id" class="btn btn-lg btn-info">
+                                        Adoptar
+                                    </a>
+                                </Authorized>
+                                <NotAuthorized>
+                                    <p>
+                                        Inicia sesión dando click al siguiente botón para comenzar el proceso de adopción
+                                    </p>
+                                    <SignInButton />
+                                </NotAuthorized>
+                            </AuthorizeView>
                         </div>
                     </div>
                     <div class="mt-5">

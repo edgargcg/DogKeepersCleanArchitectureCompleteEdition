@@ -2,5 +2,8 @@
 <button type="button"
         class="btn btn-light text-center"
         @onclick="@(args => dialogService.Open<SignInView>("", null, new DialogOptions() { ShowTitle = false }))">
-    Entrar
+    @Text
 </button>
+@code{
+    [Parameter] public string Text { get; set; } = "Entrar";
+}

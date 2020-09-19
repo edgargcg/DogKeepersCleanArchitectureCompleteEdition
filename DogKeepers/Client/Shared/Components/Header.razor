@@ -8,13 +8,20 @@
         <div class="text-right">
             <div class="btn-group">
                 <AuthorizeView>
-                    <Authorized>
-                        <h4>Logged</h4>
-                    </Authorized>
                     <NotAuthorized>
                         <SignInButton />
                         <SignUpButton />
                     </NotAuthorized>
+                </AuthorizeView>
+                <AuthorizeView Roles="user">
+                    <Authorized>
+                        <RadzenButton Icon="account_circle" />
+                    </Authorized>
+                </AuthorizeView>
+                <AuthorizeView Roles="administrator">
+                    <Authorized>
+                        <RadzenButton Icon="admin_panel_settings" />
+                    </Authorized>
                 </AuthorizeView>
             </div>
         </div>
