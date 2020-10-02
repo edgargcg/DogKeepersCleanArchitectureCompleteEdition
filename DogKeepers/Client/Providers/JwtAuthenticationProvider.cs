@@ -132,19 +132,21 @@ namespace DogKeepers.Client.Providers
                 httpClient.GetAsync(
                     $"Auth/RefreshToken"
                 );
-
-            var response = await ApiResponse<JwtDto>.Create(apiResponse);
-            if (response.Error != null)
+            try
             {
-                return null;
-            }
-            else
-            {
-                await localStorageService.SetItemAsync(localStorageOption.Token, response.Data.Token);
-                await localStorageService.SetItemAsync(localStorageOption.ExpirationDate, response.Data.Token.ToString());
+                var response = await ApiResponse<JwtDto>.Create(apiResponse);
+                if (response.Error != null)
+                {
+                    return null;
+                }
+                else
+                {
+                    await localStorageService.SetItemAsync(localStorageOption.Token, response.Data.Token);
+                    await localStorageService.SetItemAsync(localStorageOption.ExpirationDate, response.Data.Token.ToString());
 
-                return response.Data.Token;
-            }
+                    return response.Data.Token;
+                }
+            }catch(Exception ex) { return null; }
         }
 
         private bool IsRequiredRefreshToken(DateTime expirationTime)
